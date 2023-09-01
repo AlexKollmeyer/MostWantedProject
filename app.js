@@ -107,6 +107,18 @@ function searchByDob(people) {
     const dobFilterResults = people.filter(person => person.dob === dobToSearchFor);
     return dobFilterResults;
 }
+function searchByHeight(people) {
+    const heightToSearchForString = prompt('Please enter the height of the person you are searching for.');
+    const heightToSearchForInt = parseInt(heightToSearchForString);
+    const heightFilterResults = people.filter(person => person.height === heightToSearchForInt);
+    return heightFilterResults;
+}
+function searchByWeight(people) {
+    const weightToSearchForString = prompt('Please enter the weight of the person you are searching for.');
+    const weightToSearchForInt = parseInt(weightToSearchForString);
+    const weightFilterResults = people.filter(person => person.weight === weightToSearchForInt);
+    return weightFilterResults;
+}
     function searchByEyeColor(people) {
     const eyeColorToSearchFor = validatedPrompt(
         'Please enter the eyeColor you wish to filter for',
@@ -114,6 +126,14 @@ function searchByDob(people) {
         );
     const eyeColorFilterResults = people.filter(person => person.eyeColor ===  eyeColorToSearchFor); 
     return eyeColorFilterResults;
+}
+function searchByOccupation(people) {
+    const occupationToSearchFor = validatedPrompt(
+        'Please enter the occupation you wish to filter for',
+        ['programmer','assistant','landscaper','nurse','student','architect','doctor','politician']
+        );
+    const occupationFilterResults = people.filter(person => person.occupation ===  occupationToSearchFor); 
+    return occupationFilterResults;
 }
 function mainMenu(person, people) {
 
