@@ -41,7 +41,7 @@ function searchPeopleDataSet(people) {
             break;
         case 'traits':
             //! TODO
-            // results = searchByTraits(people);
+            results = searchByTraits(people);
             break;
         default:
             return searchPeopleDataSet(people);
@@ -63,7 +63,58 @@ function searchByName(people) {
     const fullNameSearchResults = people.filter(person => (person.firstName.toLowerCase() === firstNameToSearchFor.toLowerCase() && person.lastName.toLowerCase() === lastNameToSearchFor.toLowerCase()));
     return fullNameSearchResults;
 }
+function searchByTraits(people){
+    const searchTypeTraitChoice = validatedPrompt(
+        'Please enter in what trait you would like to search by.',
+        ['gender', 'dob', 'height','weight','eyecolor','occupation']
+    );
+    let results = [];
+    switch (searchTypeTraitChoice) {
+        case 'gender':
+            results = searchByGender(people);
+            break;
+        case 'dob':
+            results = searchByDob(people);
+            break;
+        case 'height':
+            results = searchByHeight(people)
+            break;
+        case 'weight':
+            results = searchByWeight(people)
+            break;
+        case 'eyecolor':
+            results = searchByEyeColor(people)
+            break;
+        case 'occupation':
+            results = searchByOccupation(people)
+            break;    
+        default:
+            return searchPeopleDataSet(people);
+    }
 
+    return results;
+}
+function searchByGender(people) {
+    const genderToSearchFor = validatedPrompt(
+        'Please enter the gender you wish to filter for',
+        ['male','female']
+        );
+    const genderFilterResults = people.filter(person => person.gender ===  genderToSearchFor); 
+    return genderFilterResults;
+}
+function searchByDob(people) {
+    const dobToSearchFor = prompt('Please enter the dob of the person you are searching for.');
+    const dobFilterResults = people.filter(person => person.dob === dobToSearchFor);
+    return dobFilterResults;
+}
+    function searchByEyeColor(people) {
+    const eyeColorToSearchFor = validatedPrompt(
+        'Please enter the eyeColor you wish to filter for',
+        ['black','brown','hazel','blue','green']
+        );
+    const eyeColorFilterResults = people.filter(person => person.eyeColor ===  eyeColorToSearchFor); 
+    return eyeColorFilterResults;
+}
 function mainMenu(person, people) {
 
     const mainMenuUserActionChoice = validatedPrompt(
