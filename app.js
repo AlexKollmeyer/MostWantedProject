@@ -149,8 +149,8 @@ function mainMenu(person, people) {
             break;
         case "family":
             //! TODO
-            // let personFamily = findPersonFamily(person, people);
-            // displayPeople('Family', personFamily);
+            let personFamily=findPersonFamily(person, people);
+
             break;
         case "descendants":
             //! TODO
@@ -166,8 +166,9 @@ function mainMenu(person, people) {
     return mainMenu(person, people);
 }
 function findPersonFamily(person,people){
-    let familyArray=[]
-    familyArray.push(findSpouse)
+let personFamily=[]
+personFamily.push(findSpouse(person,people))
+Parents=findParents(person,people)
 }
 function displayPersonInfo(person, people){
     const spouseName=findSpouse(person,people);
@@ -200,8 +201,12 @@ function findParents(person,people){
         }
     }
     return parentNames
-
 }
+function FindSiblings(person,people){
+    const parentids=person.parents
+    const siblings= people.filter(person => person.parents===parentids)
+}
+//I realized I completely forgot to use this method and It would have saved me a lot of code.
 function displayPeople(displayTitle, peopleToDisplay) {
     const formatedPeopleDisplayText = peopleToDisplay.map(person => `${person.firstName} ${person.lastName}`).join('\n');
     alert(`${displayTitle}\n\n${formatedPeopleDisplayText}`);
