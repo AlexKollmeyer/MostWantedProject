@@ -145,7 +145,7 @@ function mainMenu(person, people) {
     switch (mainMenuUserActionChoice) {
         case "info":
             //! TODO
-            displayPersonInfo(person);
+            displayPersonInfo(person,people);
             break;
         case "family":
             //! TODO
@@ -165,11 +165,38 @@ function mainMenu(person, people) {
 
     return mainMenu(person, people);
 }
+//const spouse=findSpouse(person,people)
 function displayPersonInfo(person, people){
-alert(`Name: ${person.firstName} ${person.lastName} \n Gender:${person.gender} \n Date of Birth: ${person.dob} \n Height: ${person.height}
-Weight: ${person.weight} \n Eyecolor: ${person.eyeColor} \n Occupation: ${person.occupation}`)
+    const spouse=findSpouse(person,people);
+    let spouseName="";
+    if(spouse !== undefined){
+    spouseName=spouse.firstName + " " + spouse.lastName;
+    };
+    findParents(person,people)
+    const parentNames="";
+    //if (parentNames !== undefined){
+    //    parent.forEach(element => {
+            
+    //    });
+    //}
+    //const parents=findParents(person,people)
+    alert(`Name: ${person.firstName} ${person.lastName} \n Gender:${person.gender} \n Date of Birth: ${person.dob} \n Height: ${person.height}
+    Weight: ${person.weight} \n Eyecolor: ${person.eyeColor} \n Occupation: ${person.occupation}
+    Parents: 
+    Current Spouse: ${spouseName} `);
+    //${parents[0].firstName} ${parents[0].lastName}, ${parents[1].firstName} ${parents[1].lastName}
 }
-
+function findSpouse(person,people){
+    const spouseid=person.currentSpouse;
+    const spouseArray=people.filter(person => person.id === spouseid);
+    const spouse=spouseArray[0]
+    return spouse
+}
+function findParents(person,people){
+    const parentids=person.parents
+    const parentsArray= people.filter(person => person.id === parentids[0] || person.id === parentids[1]);
+    return parentsArray
+}
 function displayPeople(displayTitle, peopleToDisplay) {
     const formatedPeopleDisplayText = peopleToDisplay.map(person => `${person.firstName} ${person.lastName}`).join('\n');
     alert(`${displayTitle}\n\n${formatedPeopleDisplayText}`);
