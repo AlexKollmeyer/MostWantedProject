@@ -166,7 +166,8 @@ function mainMenu(person, people) {
     return mainMenu(person, people);
 }
 function displayPersonInfo(person, people){
-alert(`Name: ${person.firstName} ${person.lastName} \n `)
+alert(`Name: ${person.firstName} ${person.lastName} \n Gender:${person.gender} \n Date of Birth: ${person.dob} \n Height: ${person.height}
+Weight: ${person.weight} \n Eyecolor: ${person.eyeColor} \n Occupation: ${person.occupation}`)
 }
 
 function displayPeople(displayTitle, peopleToDisplay) {
