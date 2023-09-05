@@ -172,19 +172,21 @@ function displayPersonInfo(person, people){
     if(spouse !== undefined){
     spouseName=spouse.firstName + " " + spouse.lastName;
     };
-    findParents(person,people)
-    const parentNames="";
-    //if (parentNames !== undefined){
-    //    parent.forEach(element => {
-            
-    //    });
-    //}
-    //const parents=findParents(person,people)
+    
+    const parents=findParents(person,people)
+    let parentNames="";
+    if (parents.length !== 0){
+        if(parents.length==1){
+            parentNames= parents[0].firstName + " " + parents[0].lastName
+        }
+        else{
+            parentNames= `${parents[0].firstName} ${parents[0].lastName}, ${parents[1].firstName} ${parents[1].lastName} `
+        }
+    }
     alert(`Name: ${person.firstName} ${person.lastName} \n Gender:${person.gender} \n Date of Birth: ${person.dob} \n Height: ${person.height}
-    Weight: ${person.weight} \n Eyecolor: ${person.eyeColor} \n Occupation: ${person.occupation}
-    Parents: 
-    Current Spouse: ${spouseName} `);
-    //${parents[0].firstName} ${parents[0].lastName}, ${parents[1].firstName} ${parents[1].lastName}
+Weight: ${person.weight} \n Eyecolor: ${person.eyeColor} \n Occupation: ${person.occupation}
+Parents: ${parentNames}
+Current Spouse: ${spouseName} `);
 }
 function findSpouse(person,people){
     const spouseid=person.currentSpouse;
