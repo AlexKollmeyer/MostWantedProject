@@ -144,7 +144,7 @@ function mainMenu(person, people) {
 
     switch (mainMenuUserActionChoice) {
         case "info":
-            //! TODO
+            //! TODO :Done
             displayPersonInfo(person,people);
             break;
         case "family":
@@ -165,39 +165,42 @@ function mainMenu(person, people) {
 
     return mainMenu(person, people);
 }
-//const spouse=findSpouse(person,people)
+function findPersonFamily(person,people){
+    let familyArray=[]
+    familyArray.push(findSpouse)
+}
 function displayPersonInfo(person, people){
-    const spouse=findSpouse(person,people);
-    let spouseName="";
-    if(spouse !== undefined){
-    spouseName=spouse.firstName + " " + spouse.lastName;
-    };
-    
-    const parents=findParents(person,people)
-    let parentNames="";
-    if (parents.length !== 0){
-        if(parents.length==1){
-            parentNames= parents[0].firstName + " " + parents[0].lastName
-        }
-        else{
-            parentNames= `${parents[0].firstName} ${parents[0].lastName}, ${parents[1].firstName} ${parents[1].lastName} `
-        }
-    }
+    const spouseName=findSpouse(person,people);
+    const parentNames=findParents(person,people)
     alert(`Name: ${person.firstName} ${person.lastName} \n Gender:${person.gender} \n Date of Birth: ${person.dob} \n Height: ${person.height}
 Weight: ${person.weight} \n Eyecolor: ${person.eyeColor} \n Occupation: ${person.occupation}
-Parents: ${parentNames}
-Current Spouse: ${spouseName} `);
+${parentNames}
+${spouseName} `);
 }
 function findSpouse(person,people){
     const spouseid=person.currentSpouse;
     const spouseArray=people.filter(person => person.id === spouseid);
     const spouse=spouseArray[0]
-    return spouse
+    let spouseName="";
+    if(spouse !== undefined){
+    spouseName=`Current Spouse: ${spouse.firstName} ${spouse.lastName}`
+    };
+    return spouseName
 }
 function findParents(person,people){
     const parentids=person.parents
-    const parentsArray= people.filter(person => person.id === parentids[0] || person.id === parentids[1]);
-    return parentsArray
+    const parents= people.filter(person => person.id === parentids[0] || person.id === parentids[1]);
+    let parentNames="";
+    if (parents.length !== 0){
+        if(parents.length==1){
+            parentNames= `Parents: ${parents[0].firstName} ${parents[0].lastName}`
+        }
+        else{
+            parentNames= `Parents: ${parents[0].firstName} ${parents[0].lastName}, ${parents[1].firstName} ${parents[1].lastName} `
+        }
+    }
+    return parentNames
+
 }
 function displayPeople(displayTitle, peopleToDisplay) {
     const formatedPeopleDisplayText = peopleToDisplay.map(person => `${person.firstName} ${person.lastName}`).join('\n');
