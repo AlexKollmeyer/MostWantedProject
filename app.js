@@ -40,7 +40,7 @@ function searchPeopleDataSet(people) {
             results = searchByName(people);
             break;
         case 'traits':
-            //! TODO
+            //! TODO: Done
             results = searchByTraits(people);
             break;
         default:
@@ -145,7 +145,7 @@ function mainMenu(person, people) {
     switch (mainMenuUserActionChoice) {
         case "info":
             //! TODO
-            // displayPersonInfo(person);
+            displayPersonInfo(person);
             break;
         case "family":
             //! TODO
@@ -164,6 +164,9 @@ function mainMenu(person, people) {
     }
 
     return mainMenu(person, people);
+}
+function displayPersonInfo(person, people){
+alert(`Name: ${person.firstName} ${person.lastName} \n `)
 }
 
 function displayPeople(displayTitle, peopleToDisplay) {
