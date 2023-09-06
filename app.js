@@ -109,15 +109,27 @@ function searchByDob(people) {
 }
 function searchByHeight(people) {
     const heightToSearchForString = prompt('Please enter the height of the person you are searching for.');
+    if(!isNaN(heightToSearchForString)){
     const heightToSearchForInt = parseInt(heightToSearchForString);
     const heightFilterResults = people.filter(person => person.height === heightToSearchForInt);
     return heightFilterResults;
+    }
+    else{
+        alert("Please enter a number")
+        return searchByHeight(people)
+    }
 }
 function searchByWeight(people) {
     const weightToSearchForString = prompt('Please enter the weight of the person you are searching for.');
-    const weightToSearchForInt = parseInt(weightToSearchForString);
-    const weightFilterResults = people.filter(person => person.weight === weightToSearchForInt);
-    return weightFilterResults;
+    if(!isNaN(weightToSearchForString)){
+        const weightToSearchForInt = parseInt(weightToSearchForString);
+        const weightFilterResults = people.filter(person => person.weight === weightToSearchForInt);
+        return weightFilterResults;
+        }
+        else{
+            alert("Please enter a number")
+            return searchByWeight(people)
+        }
 }
     function searchByEyeColor(people) {
     const eyeColorToSearchFor = validatedPrompt(
@@ -167,6 +179,7 @@ function mainMenu(person, people) {
     return mainMenu(person, people);
 }
 function findPersonFamily(person,people){
+//let personFamily={"spouse": [], "parents": [], "siblings": []}
 let personFamily=[]
 const spouse=findSpouse(person,people)
 if(spouse!=undefined){
