@@ -42,6 +42,10 @@ function searchPeopleDataSet(people) {
         case 'traits':
             //! TODO: Done
             results = searchByTraits(people);
+            let done=false
+            if(results.length>1 && done==false){
+                results= searchByTraits(people)
+            }
             break;
         default:
             return searchPeopleDataSet(people);
@@ -64,11 +68,14 @@ function searchByName(people) {
     return fullNameSearchResults;
 }
 function searchByTraits(people){
-    const searchTypeTraitChoice = validatedPrompt(
-        'Please enter in what trait you would like to search by.',
-        ['gender', 'dob', 'height','weight','eyecolor','occupation']
-    );
     let results = [];
+    let numOfMatchingRecords=22
+    if(results.length>0)numOfMatchingRecords=results.length
+    const searchTypeTraitChoice = validatedPrompt(
+        `Please enter in what trait you would like to search by. \n Current Number of Matching Records: ${numOfMatchingRecords}`,
+        ['gender', 'dob', 'height','weight','eyecolor','occupation','reset','done']
+    );
+    
     switch (searchTypeTraitChoice) {
         case 'gender':
             results = searchByGender(people);
@@ -87,7 +94,12 @@ function searchByTraits(people){
             break;
         case 'occupation':
             results = searchByOccupation(people)
-            break;    
+            break;
+        case 'reset':
+            return searchTypeTraitChoice(people)
+        case 'done':
+            done=true
+            break;
         default:
             return searchPeopleDataSet(people);
     }
