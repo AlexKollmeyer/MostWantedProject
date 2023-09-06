@@ -150,12 +150,13 @@ function mainMenu(person, people) {
         case "family":
             //! TODO
             let personFamily=findPersonFamily(person, people);
+            displayPeople("Family",personFamily)
 
             break;
         case "descendants":
             //! TODO
-            // let personDescendants = findPersonDescendants(person, people);
-            // displayPeople('Descendants', personDescendants);
+            let personDescendants = findPersonDescendants(person, people);
+            displayPeople('Descendants', personDescendants);
             break;
         case "quit":
             return;
@@ -167,51 +168,54 @@ function mainMenu(person, people) {
 }
 function findPersonFamily(person,people){
 let personFamily=[]
-personFamily.push(findSpouse(person,people))
-Parents=findParents(person,people)
+const spouse=findSpouse(person,people)
+if(spouse!=undefined){
+    personFamily.push(spouse)
+}
+const parents=findParents(person,people)
+personFamily=personFamily.concat(parents)
+const siblings=FindSiblings(person,people)
+personFamily=personFamily.concat(siblings)
+return personFamily
 }
 function displayPersonInfo(person, people){
-    const spouseName=findSpouse(person,people);
-    const parentNames=findParents(person,people)
+    const spouse=findSpouse(person,people);
+    const parents=findParents(person,people)
+    const spouseName=""
+    if(spouse != undefined){
+        spouseName=`${spouse.firstName} ${spouse.lastName}`
+    }
+    const parentsNames=parents.map(person => `${person.firstName} ${person.lastName}`).join(', ')
     alert(`Name: ${person.firstName} ${person.lastName} \n Gender:${person.gender} \n Date of Birth: ${person.dob} \n Height: ${person.height}
 Weight: ${person.weight} \n Eyecolor: ${person.eyeColor} \n Occupation: ${person.occupation}
-${parentNames}
-${spouseName} `);
+Parents: ${parentsNames}
+Spouse: ${spouseName} `);
 }
 function findSpouse(person,people){
     const spouseid=person.currentSpouse;
     const spouseArray=people.filter(person => person.id === spouseid);
     const spouse=spouseArray[0]
-    let spouseName="";
-    if(spouse !== undefined){
-    spouseName=`Current Spouse: ${spouse.firstName} ${spouse.lastName}`
-    };
-    return spouseName
+    return spouse
 }
 function findParents(person,people){
     const parentids=person.parents
     const parents= people.filter(person => person.id === parentids[0] || person.id === parentids[1]);
-    let parentNames="";
-    if (parents.length !== 0){
-        if(parents.length==1){
-            parentNames= `Parents: ${parents[0].firstName} ${parents[0].lastName}`
-        }
-        else{
-            parentNames= `Parents: ${parents[0].firstName} ${parents[0].lastName}, ${parents[1].firstName} ${parents[1].lastName} `
-        }
-    }
-    return parentNames
+    return parents
 }
 function FindSiblings(person,people){
     const parentids=person.parents
     const siblings= people.filter(person => person.parents===parentids)
+    return siblings
 }
-//I realized I completely forgot to use this method and It would have saved me a lot of code.
+function findPersonDescendants(person,people){
+    const personid=person.id
+    const descendants=people.filter(person => person.parents[0]===personid || person.parents[1]===personid)
+    return descendants
+}
 function displayPeople(displayTitle, peopleToDisplay) {
     const formatedPeopleDisplayText = peopleToDisplay.map(person => `${person.firstName} ${person.lastName}`).join('\n');
     alert(`${displayTitle}\n\n${formatedPeopleDisplayText}`);
 }
-
 function validatedPrompt(message, acceptableAnswers) {
     acceptableAnswers = acceptableAnswers.map(aa => aa.toLowerCase());
 
